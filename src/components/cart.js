@@ -13,6 +13,10 @@ const Cart = ({ navigation }) => {
     </View>
   );
 
+  const getTotalAmount = () => {
+    return cartItems.reduce((total, item) => total + item.price, 0);
+  };
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -25,6 +29,8 @@ const Cart = ({ navigation }) => {
         title="Checkout"
         onPress={() => navigation.navigate("Checkout")}
       />
+
+      <Text style={styles.totalAmount}>Total: ${getTotalAmount()}</Text>
     </View>
   );
 };
