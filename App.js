@@ -1,20 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import MainNavigator from "./src/navigation/MainNavigator";
+import AuthContext from "./src/contexts/AuthContext";
 
-export default function App() {
+const App = () => {
+  const [users, setUsers] = useState([
+    {
+      id: 1,
+      username: "MonkeyRoro",
+      password: "password1",
+      email: "user1@example.com",
+    },
+  ]);
+
+  const registerUser = (username, password, email) => {
+    const newUser = {
+      id: users.length + 1,
+      username,
+      password,
+      email,
+    };
+    setUsers([...users, newUser]);
+  };
+
+  const loginUser = (username, password) => {
+    const user = users.find(
+      (user) => user.username === username && user.password === password
+    );
+    if (user) {
+      console.log("User logged in:", user);
+      return true;
+    } else {
+      console.log("Invalid username or password");
+      return false;
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthContext.Provider
+      value={{ onLogin: loginUser, onRegister: registerUser }}
+    >
+      <MainNavigator />
+    </AuthContext.Provider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
