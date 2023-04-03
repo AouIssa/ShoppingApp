@@ -5,6 +5,8 @@ import Login from "../components/login";
 import Register from "../components/register";
 import ProductsList from "../components/productsList";
 import Cart from "../components/cart";
+import Checkout from "../components/checkout";
+
 
 const Stack = createStackNavigator();
 
@@ -31,6 +33,11 @@ const MainNavigator = () => {
           name="Cart"
           component={Cart}
           options={{ title: "Cart" }}
+        />
+        <Stack.Screen
+          name="Checkout"
+          component={Checkout}
+          options={{ title: "Checkout" }}
         />
       </Stack.Navigator>
     </NavigationContainer>

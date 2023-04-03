@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, FlatList, Text, Button, StyleSheet } from "react-native";
+import CartContext from "../contexts/CartContext";
 
-const Cart = ({ cartItems, onRemoveFromCart }) => {
+const Cart = ({ navigation }) => {
+  const { cartItems, removeFromCart } = useContext(CartContext);
+
   const renderItem = ({ item }) => (
     <View style={styles.item}>
       <Text>{item.name}</Text>
       <Text>{item.price}</Text>
-      <Button title="Remove" onPress={() => onRemoveFromCart(item.id)} />
+      <Button title="Remove" onPress={() => removeFromCart(item.id)} />
     </View>
   );
 
@@ -16,6 +19,11 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
         data={cartItems}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
+      />
+
+      <Button
+        title="Checkout"
+        onPress={() => navigation.navigate("Checkout")}
       />
     </View>
   );
